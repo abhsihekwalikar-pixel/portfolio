@@ -1,5 +1,7 @@
 import { BookOpen, Code2, GalleryHorizontal, Globe2 } from 'lucide-react'
+import { useSearchParams, Link } from 'react-router-dom'
 import ServiceCard from '../components/ServiceCard.jsx'
+import SearchBar from '../components/SearchBar.jsx'
 
 const services = [
   {
@@ -34,9 +36,38 @@ const services = [
     technology: 'React · Framer Motion · CMS',
     icon: <GalleryHorizontal size={20} strokeWidth={1.4} />,
   },
+  {
+    number: '05',
+    title: 'E-commerce Websites',
+    description: 'A thoughtful storefront for product-led businesses, with clear product discovery and a simple route to enquiry or checkout.',
+    features: ['Product catalogues', 'Responsive storefronts', 'Payments integration planning', 'Order journey design'],
+    technology: 'React · Commerce integrations · Analytics',
+    icon: <Globe2 size={20} strokeWidth={1.4} />,
+  },
 ]
 
+const serviceSearchAliases = {
+  'website development': ['custom websites', 'business & advertising sites', 'portfolio & personal sites'],
+  'custom websites': ['custom websites', 'business & advertising sites', 'portfolio & personal sites'],
+  'business sites': ['business & advertising sites'],
+  'web apps': ['custom web applications'],
+  'frontend engineering': ['custom web applications', 'portfolio & personal sites'],
+  'product design': ['portfolio & personal sites'],
+  'e-commerce': ['e-commerce websites'],
+}
+
 export default function Services() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const query = searchParams.get('search') || ''
+  const normalizedQuery = query.trim().toLowerCase()
+  const aliases = serviceSearchAliases[normalizedQuery] || []
+  const filteredServices = normalizedQuery
+    ? services.filter((service) => {
+      const searchableText = `${service.title} ${service.description} ${service.features.join(' ')} ${service.technology}`.toLowerCase()
+      return searchableText.includes(normalizedQuery) || aliases.some((alias) => searchableText.includes(alias))
+    })
+    : services
+
   return (
     <section className="services-page section-wrap">
       <header className="page-intro">
@@ -47,11 +78,16 @@ export default function Services() {
           business owners. Tell us what you need; we’ll work out how to build it.
         </p>
       </header>
+      <div className="services-page__search">
+        <SearchBar />
+        {query && <button type="button" onClick={() => setSearchParams({})}>Clear search: “{query}”</button>}
+      </div>
       <div className="service-detail-grid">
-        {services.map((service, index) => (
+        {filteredServices.map((service, index) => (
           <ServiceCard service={service} index={index} key={service.number} />
         ))}
       </div>
+      {filteredServices.length === 0 && <div className="services-empty"><h2>No exact matches yet.</h2><p>Tell us what you have in mind and we can discuss whether it fits our team.</p><Link to="/contact">Talk to HIGH5 <span aria-hidden="true">↗</span></Link></div>}
     </section>
   )
 }

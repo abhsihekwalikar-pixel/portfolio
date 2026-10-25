@@ -1,9 +1,11 @@
-import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
+import { ArrowDownRight, ArrowUpRight, ArrowUpRight as Arrow } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import HeroVisual from './HeroVisual.jsx'
+import SearchBar from './SearchBar.jsx'
 
 const lines = ['We engineer', 'high-performance', 'web experiences.']
+const popularCategories = ['Website Development', 'Educational Platforms', 'Business Sites', 'E-commerce', 'Web Apps']
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion()
@@ -53,6 +55,14 @@ export default function Hero() {
           </motion.div>
         </div>
         <HeroVisual />
+      </div>
+
+      <div className="hero__discover">
+        <SearchBar />
+        <div className="hero-categories" aria-label="Popular service categories">
+          <span className="eyebrow">Explore services</span>
+          <div>{popularCategories.map((category) => <Link key={category} to={`/services?search=${encodeURIComponent(category)}`}>{category} <Arrow size={13} /></Link>)}</div>
+        </div>
       </div>
 
       <Link className="hero__scroll" to="/services" aria-label="Explore what we build">

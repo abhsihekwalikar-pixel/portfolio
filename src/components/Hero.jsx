@@ -20,7 +20,7 @@ export default function Hero() {
           <motion.h1
             className="hero__title"
             aria-label={lines.join(' ')}
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: 'easeOut' }}
           >
@@ -32,7 +32,7 @@ export default function Hero() {
           </motion.h1>
           <motion.div
             className="hero__copy"
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.65, ease: 'easeOut' }}
           >

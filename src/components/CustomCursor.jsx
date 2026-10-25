@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 
-const pointerQuery = '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)'
+const pointerQuery = '(min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)'
 
 export default function CustomCursor() {
   const [enabled, setEnabled] = useState(false)

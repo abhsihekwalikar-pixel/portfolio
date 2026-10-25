@@ -14,8 +14,8 @@ const links = [
 ]
 
 const menuVariants = {
-  closed: { opacity: 0, y: '-5%', transition: { duration: 0.2, ease: 'easeOut' } },
-  open: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
+  closed: { opacity: 0, y: '-2%', transition: { duration: 0.2, ease: 'easeOut' } },
+  open: { opacity: 1, y: 0, transition: { duration: 0.25, ease: 'easeOut' } },
 }
 
 export default function Navbar() {
@@ -63,6 +63,7 @@ export default function Navbar() {
           className="menu-toggle"
           type="button"
           aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-controls="mobile-navigation"
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((open) => !open)}
         >
@@ -72,7 +73,10 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            id="mobile-navigation"
             className={`mobile-menu ${menuOpen ? 'mobile-menu--open' : ''}`}
+            role="navigation"
+            aria-label="Mobile navigation"
             initial="closed"
             animate="open"
             exit="closed"

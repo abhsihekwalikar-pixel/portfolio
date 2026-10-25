@@ -43,7 +43,7 @@ export default function Process() {
           <motion.article
             className="process-detail"
             key={step.number}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.06, ease: 'easeOut' }}

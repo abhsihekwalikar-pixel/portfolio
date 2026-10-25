@@ -80,7 +80,7 @@ function StoryChapter({ chapter, index }) {
     <article className={`manifesto-chapter ${chapter.layout}`}>
       <motion.div
         className="manifesto-chapter__rail"
-        initial={{ opacity: 0, x: -10 }}
+        initial={{ opacity: 0, x: -5 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.6 }}
         transition={{ duration: 0.45, ease: 'easeOut' }}
@@ -93,7 +93,7 @@ function StoryChapter({ chapter, index }) {
       <div className="manifesto-chapter__content">
         <motion.span
           className="eyebrow manifesto-chapter__label"
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.45, delay: 0.05, ease: 'easeOut' }}
@@ -105,7 +105,7 @@ function StoryChapter({ chapter, index }) {
         </RevealHeadline>
         <motion.p
           className="manifesto-chapter__body"
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.45 }}
           transition={{ duration: 0.65, delay: 0.18, ease: 'easeOut' }}
@@ -131,7 +131,7 @@ export default function About() {
         </motion.span>
         <motion.h1
           className="about-manifesto-header__title"
-          initial={{ opacity: 0, y: 22 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.08, ease: 'easeOut' }}
         >
@@ -153,7 +153,7 @@ export default function About() {
       <section className="about-stats-section" aria-label="High5 at a glance">
         <motion.div
           className="about-stats-section__heading"
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 9 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45, ease: 'easeOut' }}
@@ -166,7 +166,7 @@ export default function About() {
             <motion.div
               className="about-stat"
               key={stat.label}
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: index * 0.07, ease: 'easeOut' }}

@@ -68,7 +68,7 @@ export default function Team() {
 
       <motion.section
         className="team-together"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.55, ease: 'easeOut' }}

@@ -49,7 +49,7 @@ export default function Home() {
             <motion.div
               className="home-service"
               key={service.number}
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: index * 0.08, ease: 'easeOut' }}
@@ -82,7 +82,7 @@ export default function Home() {
             <motion.article
               className="reason-item"
               key={reason.title}
-              initial={{ opacity: 0, x: 18 }}
+              initial={{ opacity: 0, x: 8 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: index * 0.08, ease: 'easeOut' }}

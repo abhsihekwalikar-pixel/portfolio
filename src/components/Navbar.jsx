@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { ChevronDown, Globe2, Menu, Search, X } from 'lucide-react'
+import { ChevronDown, Globe2, Search, X } from 'lucide-react'
 import high5Logo from '../assets/high5-logo.png'
 import AuthModal from './AuthModal.jsx'
+import MobileMenu from './MobileMenu.jsx'
 
 const links = [
   { label: 'Home', to: '/' },
@@ -24,11 +26,6 @@ const proLinks = [
   { label: 'I’m looking to hire', to: '/pro', note: 'Talk through your project' },
   { label: 'I want to collaborate', to: '/become-a-seller', note: 'Explore working with HIGH5' },
 ]
-
-const menuVariants = {
-  closed: { opacity: 0, y: '-2%', transition: { duration: 0.2, ease: 'easeOut' } },
-  open: { opacity: 1, y: 0, transition: { duration: 0.25, ease: 'easeOut' } },
-}
 
 const searchable = [
   { title: 'Home', detail: 'HIGH5 studio', to: '/' },
@@ -90,7 +87,7 @@ export default function Navbar() {
   }, [location.pathname])
 
   useEffect(() => {
-    document.body.classList.toggle('menu-open', menuOpen || Boolean(authMode))
+    document.body.classList.toggle('menu-open', Boolean(authMode))
     return () => document.body.classList.remove('menu-open')
   }, [menuOpen, authMode])
 
@@ -135,7 +132,7 @@ export default function Navbar() {
     }
   }
 
-  return (
+  return createPortal(
     <header className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}>
       <nav className="nav-shell" aria-label="Main navigation">
         <Link className="wordmark" to="/" onClick={closeMenu} aria-label="High5 home">
@@ -176,42 +173,14 @@ export default function Navbar() {
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((open) => !open)}
         >
-          {menuOpen ? <X size={21} /> : <Menu size={21} />}
+          <span className="menu-toggle__icon" aria-hidden="true">
+            <motion.span animate={menuOpen ? { y: 0, rotate: 45 } : { y: -6, rotate: 0 }} />
+            <motion.span animate={menuOpen ? { opacity: 0, scaleX: 0.4 } : { opacity: 1, scaleX: 1 }} />
+            <motion.span animate={menuOpen ? { y: 0, rotate: -45 } : { y: 6, rotate: 0 }} />
+          </span>
         </button>
       </nav>
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            id="mobile-navigation"
-            className={`mobile-menu ${menuOpen ? 'mobile-menu--open' : ''}`}
-            role="navigation"
-            aria-label="Mobile navigation"
-            initial="closed"
-            animate="open"
-            exit="closed"
-            variants={menuVariants}
-          >
-            {links.map((link, index) => (
-              <NavLink
-                className={({ isActive }) =>
-                  `mobile-menu__link${isActive ? ' mobile-menu__link--active' : ''}`
-                }
-                to={link.to}
-                key={link.label}
-                onClick={closeMenu}
-                style={{ '--item-index': index }}
-              >
-                <span>0{index + 1}</span>
-                {link.label}
-              </NavLink>
-            ))}
-            <Link className="mobile-menu__link" to="/pro" onClick={closeMenu}><span>07</span>HIGH5 Pro</Link>
-            <Link className="mobile-menu__link" to="/become-a-seller" onClick={closeMenu}><span>08</span>Become a collaborator</Link>
-            <button className="mobile-menu__link" type="button" onClick={() => { closeMenu(); setAuthMode('signin') }}><span>09</span>Sign in / Join</button>
-            <span className="mobile-menu__note">Five engineering students · One shared ambition</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <MobileMenu isOpen={menuOpen} setIsOpen={setMenuOpen} onAuthOpen={setAuthMode} />
       <AuthModal mode={authMode} onClose={closeAuth} onModeChange={setAuthMode} />
       <AnimatePresence>
         {searchOpen && (
@@ -231,6 +200,7 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </header>,
+    document.getElementById('navbar-root'),
   )
 }

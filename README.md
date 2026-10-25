@@ -5,7 +5,7 @@
 > **From college projects to production-grade engineering.** 
 > HIGH5 is a premium, multi-page portfolio website built by a team of five dedicated engineering students. We specialize in crafting blazing-fast, personalized web experiences, educational platforms, and business sites that refuse to blend in.
 
-  **Live Demo:** [https://high5.vercel.app](https://your-actual-vercel-link.vercel.app) *(Replace with your actual link)*
+  
 
 ---
 
